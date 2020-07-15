@@ -1,14 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { useStyles } from "./BaseOfCard.styles";
+import { useStyles } from "./Base.styles";
 
-export const BaseOfCard = ({ element }) => {
+export const Base = ({ element }) => {
   const classes = useStyles();
 
   return <div className={classes.base}>{element}</div>;
 };
 
-BaseOfCard.propTypes = {
+Base.propTypes = {
   element: PropTypes.element.isRequired,
 };

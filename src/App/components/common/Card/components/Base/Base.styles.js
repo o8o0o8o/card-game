@@ -8,5 +8,6 @@ export const useStyles = createUseStyles({
     height: "180px",
     borderRadius: "15%",
     background: "white",
+    border: "1px solid black",
   },
 });
