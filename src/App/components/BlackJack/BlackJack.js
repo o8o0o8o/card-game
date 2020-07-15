@@ -1,18 +1,11 @@
 import React from "react";
 
-import { Card } from "../common/Card/Card";
+import { Button } from "../common/Button/Button";
 
 export const BlackJack = () => {
   return (
     <div>
-      <Card
-        card={{
-          back: "gradient",
-          suit: "suit",
-          rank: "value",
-          effect: "",
-        }}
-      />
+      <Button text="Start" />
     </div>
   );
 };
