@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { useStyles } from "./Flipper.styles";
+import { useStyles } from "./Flip.styles";
 
-export const Flipper = ({ front, back }) => {
+export const Flip = ({ front, back }) => {
   const classes = useStyles();
 
   return (
@@ -16,7 +16,7 @@ export const Flipper = ({ front, back }) => {
   );
 };
 
-Flipper.propTypes = {
+Flip.propTypes = {
   front: PropTypes.element.isRequired,
   back: PropTypes.element.isRequired,
 };
