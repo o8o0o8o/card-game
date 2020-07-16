@@ -3,10 +3,17 @@ import PropTypes from "prop-types";
 
 import { useStyles } from "./Button.styles";
 
-export const Button = ({ text }) => {
+export const Button = ({ text, callback }) => {
   const classes = useStyles();
 
-  return <button className={classes.btn}>{text}</button>;
+  return (
+    <button className={classes.btn} onClick={callback}>
+      {text}
+    </button>
+  );
 };
 
-Button.propTypes = { text: PropTypes.string.isRequired };
+Button.propTypes = {
+  text: PropTypes.string.isRequired,
+  callback: PropTypes.func.isRequired,
+};
