@@ -5,6 +5,7 @@ import { Base } from "../Card/components/Base/Base";
 import { Flip } from "../Card/components/effects/Flip/Flip";
 import { Gradient } from "../../common/Card/components/backgrounds/Gradient/Gradient";
 import { Spades } from "./components/suits/Spades/Spades";
+import { Diamonds } from "./components/suits/Diamonds/Diamonds";
 
 export const Card = ({ card }) => {
   const changeBackOfCard = useMemo(() => {
@@ -23,7 +24,7 @@ export const Card = ({ card }) => {
       case "gradient":
         return <Base element={<Gradient element={changeCardRank} />} />;
       default:
-        return <Spades />;
+        return <Diamonds />;
     }
   }, [card.suit, changeCardRank]);
 
