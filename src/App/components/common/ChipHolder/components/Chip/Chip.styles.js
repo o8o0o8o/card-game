@@ -2,7 +2,6 @@ import { createUseStyles } from "react-jss";
 
 const DIAMETER = 80;
 const OFFSET = 10;
-const RING = "red";
 const INNER = "white";
 
 export const useStyles = createUseStyles({
@@ -12,7 +11,6 @@ export const useStyles = createUseStyles({
     width: DIAMETER,
     borderRadius: "50%",
     border: "1px solid black",
-    background: RING,
   },
   innerCircle: {
     position: "absolute",
@@ -70,5 +68,17 @@ export const useStyles = createUseStyles({
     height: DIAMETER - 2 * OFFSET,
     justifyContent: "center",
     alignItems: "center",
+  },
+  red: {
+    background: "red",
+  },
+  green: {
+    background: "green",
+  },
+  blue: {
+    background: "blue",
+  },
+  gray: {
+    background: "gray",
   },
 });
