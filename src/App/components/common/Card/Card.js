@@ -4,9 +4,8 @@ import PropTypes from "prop-types";
 import { Base } from "../Card/components/Base/Base";
 import { Flip } from "../Card/components/effects/Flip/Flip";
 import { Gradient } from "../../common/Card/components/backgrounds/Gradient/Gradient";
-import { Spades } from "./components/suits/Spades/Spades";
-import { Diamonds } from "./components/suits/Diamonds/Diamonds";
 import { Clubs } from "./components/suits/Clubs/Clubs";
+import { Rank } from "./components/Rank/Rank";
 
 export const Card = ({ card }) => {
   const changeBackOfCard = useMemo(() => {
@@ -18,9 +17,9 @@ export const Card = ({ card }) => {
     }
   }, [card.back]);
 
-  const changeCardRank = useMemo(() => {}, []);
+  const changeCardRank = useMemo(() => <Rank rank="K" />, []);
 
-  const changeSuitBackOfCard = useMemo(() => {
+  const changeSuitOfCard = useMemo(() => {
     switch (card.suit) {
       case "gradient":
         return <Base element={<Gradient element={changeCardRank} />} />;
@@ -32,11 +31,11 @@ export const Card = ({ card }) => {
   const chooseEffect = useMemo(() => {
     switch (card.effect) {
       case "flip":
-        return <Flip front={changeBackOfCard} back={changeSuitBackOfCard} />;
+        return <Flip back={changeBackOfCard} front={changeSuitOfCard} />;
       default:
-        return <Base element={changeSuitBackOfCard} />;
+        return <Base suit={changeSuitOfCard} rank={changeCardRank} />;
     }
-  }, [card.effect, changeBackOfCard, changeSuitBackOfCard]);
+  }, [card.effect, changeBackOfCard, changeCardRank, changeSuitOfCard]);
 
   return <div>{chooseEffect}</div>;
 };
