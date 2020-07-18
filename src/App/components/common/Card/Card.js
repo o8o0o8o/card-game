@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { Base } from "../Card/components/Base/Base";
 import { Flip } from "../Card/components/effects/Flip/Flip";
 import { Gradient } from "../../common/Card/components/backgrounds/Gradient/Gradient";
-import { Hearts } from "./components/suits/Hearts/Hearts";
+import { Spades } from "./components/suits/Spades/Spades";
 
 export const Card = ({ card }) => {
   const changeBackOfCard = useMemo(() => {
@@ -23,7 +23,7 @@ export const Card = ({ card }) => {
       case "gradient":
         return <Base element={<Gradient element={changeCardRank} />} />;
       default:
-        return <Hearts />;
+        return <Spades />;
     }
   }, [card.suit, changeCardRank]);
 
@@ -34,7 +34,7 @@ export const Card = ({ card }) => {
       default:
         return <Base element={changeSuitBackOfCard} />;
     }
-  }, [changeBackOfCard, changeSuitBackOfCard]);
+  }, [card.effect, changeBackOfCard, changeSuitBackOfCard]);
 
   return <div>{chooseEffect}</div>;
 };

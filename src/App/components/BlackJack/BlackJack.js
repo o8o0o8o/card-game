@@ -1,11 +1,10 @@
 import React from "react";
-
-import { Button } from "../common/Button/Button";
+import { Card } from "../common/Card/Card";
 
 export const BlackJack = () => {
   return (
     <div>
-      <Button text="Start" />
+      <Card card={{ back: "sd" }} />
     </div>
   );
 };
