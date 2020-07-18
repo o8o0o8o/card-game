@@ -1,10 +1,10 @@
 import React from "react";
-import { Card } from "../common/Card/Card";
+import { Chip } from "../common/Chip/Chip";
 
 export const BlackJack = () => {
   return (
     <div>
-      <Card card={{ back: "sd" }} />
+      <Chip value="1$" />
     </div>
   );
 };
