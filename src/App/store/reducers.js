@@ -1,13 +1,41 @@
-import { setBackOfCard, setSuitOfCard } from "./actions";
+import { getACard, resetDeck, addPlayerHand } from "./actions";
 
-const DEFAULT_STATE = { backOfCard: "gradient" };
+function deckInit() {
+  let deck = [];
+  for (let i = 2; i <= 10; i++) {
+    deck.push(`diamonds_${i}`);
+    deck.push(`spades_${i}`);
+    deck.push(`hearts_${i}`);
+    deck.push(`clubs_${i}`);
+  }
+  let arr = ["A", "Q", "K", "J"];
+  for (let i = 0; i < arr.length; i++) {
+    deck.push(`diamonds_${arr[i]}`);
+    deck.push(`spades_${arr[i]}`);
+    deck.push(`hearts_${arr[i]}`);
+    deck.push(`clubs_${arr[i]}`);
+  }
+  return deck;
+}
 
-export const cardReducer = (state = DEFAULT_STATE, action) => {
+const DEFAULT_DECK_STATE = deckInit();
+
+export const cardReducer = (state = DEFAULT_DECK_STATE, action) => {
   switch (action.type) {
-    case setBackOfCard.type:
-      return action.payload;
-    case setSuitOfCard.type:
-      return action.payload;
+    case getACard.type:
+      state.splice(state.indexOf(action.payload), 1);
+      return state;
+    case resetDeck.type:
+      return state;
+    default:
+      return state;
+  }
+};
+
+export const playerHandReducer = (state = [], action) => {
+  switch (action.type) {
+    case addPlayerHand.type:
+      return [...state, action.payload];
     default:
       return state;
   }
