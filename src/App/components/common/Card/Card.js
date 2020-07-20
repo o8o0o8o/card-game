@@ -5,39 +5,51 @@ import { Base } from "../Card/components/Base/Base";
 import { Flip } from "../Card/components/effects/Flip/Flip";
 import { Gradient } from "../../common/Card/components/backgrounds/Gradient/Gradient";
 import { Clubs } from "./components/suits/Clubs/Clubs";
+import { Diamonds } from "./components/suits/Diamonds/Diamonds";
+import { Hearts } from "./components/suits/Hearts/Hearts";
+import { Spades } from "./components/suits/Spades/Spades";
 import { Rank } from "./components/Rank/Rank";
 
-export const Card = ({ card }) => {
+export const Card = ({ suit, rank, back, effect }) => {
   const changeBackOfCard = useMemo(() => {
-    switch (card.back) {
+    switch (back) {
       case "gradient":
         return <Base element={<Gradient />} />;
       default:
         return <Base />;
     }
-  }, [card.back]);
+  }, [back]);
 
-  const changeCardRank = useMemo(() => <Rank rank="K" />, []);
+  const changeCardRank = useMemo(() => <Rank rank={rank} />, [rank]);
 
   const changeSuitOfCard = useMemo(() => {
-    switch (card.suit) {
-      case "gradient":
-        return <Base element={<Gradient element={changeCardRank} />} />;
+    switch (suit) {
+      case "diamonds":
+        return <Diamonds />;
+      case "spades":
+        return <Spades />;
+      case "hearts":
+        return <Hearts />;
       default:
         return <Clubs />;
     }
-  }, [card.suit, changeCardRank]);
+  }, [suit]);
 
   const chooseEffect = useMemo(() => {
-    switch (card.effect) {
+    switch (effect) {
       case "flip":
         return <Flip back={changeBackOfCard} front={changeSuitOfCard} />;
       default:
         return <Base suit={changeSuitOfCard} rank={changeCardRank} />;
     }
-  }, [card.effect, changeBackOfCard, changeCardRank, changeSuitOfCard]);
+  }, [changeBackOfCard, changeCardRank, changeSuitOfCard, effect]);
 
   return <div>{chooseEffect}</div>;
 };
 
-Card.propTypes = { card: PropTypes.object.isRequired };
+Card.propTypes = {
+  suit: PropTypes.string.isRequired,
+  rank: PropTypes.string.isRequired,
+  back: PropTypes.string.isRequired,
+  effect: PropTypes.string.isRequired,
+};
