@@ -33,4 +33,8 @@ export const useStyles = createUseStyles({
     display: "flex",
     justifyContent: "space-between",
   },
+  footer: {
+    position: "absolute",
+    bottom: 10,
+  },
 });
