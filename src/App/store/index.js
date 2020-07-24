@@ -12,6 +12,7 @@ import {
   blackJackGameModeReducer,
   blackJackGameResultReducer,
 } from "./reducers";
+import { errorsReducer } from "../components/common/errors/store/Errors.reducer";
 
 const rootReducer = combineReducers({
   deck: cardReducer,
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
     gameIsOn: blackJackGameModeReducer,
     lastGameResult: blackJackGameResultReducer,
   }),
+  errors: errorsReducer,
 });
 
 export const store = createStore(
