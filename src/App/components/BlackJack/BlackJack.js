@@ -33,6 +33,8 @@ import { useStyles } from "./BlackJack.styles";
 import { ChipHolder } from "../common/ChipHolder/ChipHolder";
 import { DealerHand } from "./components/DealerHand/DealerHand";
 import { Footer } from "../common/Footer/Footer";
+import { addError } from "../common/errors/store/Errors.actions";
+import { Errors } from "../common/errors/Errors";
 
 export const BlackJack = () => {
   const classes = useStyles();
@@ -127,11 +129,16 @@ export const BlackJack = () => {
       setIsItEndOfTheGame(false);
       dispatch(setBlackJackState(false));
       dispatch(setBlackJackGameResult(null));
+    } else {
+      dispatch(addError("Make a bet"));
     }
   }, [dispatch, gameIsOn, playerBet]);
 
   return (
     <div className={classes.background}>
+      <Errors />
+      <div className={classes.chipHolder}>
+        <ChipHolder />
       <div className={classes.moneyComponents}>
         <div className={classes.chipHolder}>
           <ChipHolder />
