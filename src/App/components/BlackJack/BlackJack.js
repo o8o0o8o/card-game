@@ -59,6 +59,7 @@ export const BlackJack = () => {
           if (["K", "J", "Q", "A"].includes(val)) {
             return 10;
           }
+          return el;
         })
         .reduce((a, b) => a + b, 0);
       const dealerPoints = dealerHand
@@ -70,6 +71,7 @@ export const BlackJack = () => {
           if (["K", "J", "Q", "A"].includes(val)) {
             return 10;
           }
+          return el;
         })
         .reduce((a, b) => a + b, 0);
       if (playerPoints === 21 || dealerPoints > 21) {
@@ -130,8 +132,12 @@ export const BlackJack = () => {
 
   return (
     <div className={classes.background}>
-      <div className={classes.chipHolder}>
-        <ChipHolder />
+      <div className={classes.moneyComponents}>
+        <div className={classes.chipHolder}>
+          <ChipHolder />
+        </div>
+        <div>{`Player money ${playerMoney}`}</div>
+        <div>{`Player bet ${playerBet}`}</div>
       </div>
       <div>{`Player score ${playerScore}`}</div>
       <div>{`Dealer score ${dealerScore}`}</div>
@@ -143,8 +149,6 @@ export const BlackJack = () => {
         <DealerHand />
       </div>
 
-      <div>{`Player money ${playerMoney}`}</div>
-      <div>{`Player bet ${playerBet}`}</div>
       <div className={classes.buttonsContainer}>
         <div className={classes.buttonsSplit}>
           <Button text="Start" callback={startGame} />
