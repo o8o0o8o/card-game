@@ -17,10 +17,6 @@ export const useStyles = createUseStyles({
     top: 100,
     left: "50vw",
   },
-  chipHolder: {
-    position: "relative",
-    top: 400,
-  },
   buttonsContainer: {
     width: "100%",
     height: "100%",
@@ -32,6 +28,14 @@ export const useStyles = createUseStyles({
     width: "500px",
     display: "flex",
     justifyContent: "space-between",
+  },
+  chipHolder: {
+    position: "relative",
+    top: "3rem",
+  },
+  moneyComponents: {
+    position: "relative",
+    top: 400,
   },
   footer: {
     position: "absolute",
