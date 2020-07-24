@@ -1,4 +1,21 @@
-import { getACard, resetDeck, addPlayerHand } from "./actions";
+import {
+  getACard,
+  resetDeck,
+  addPlayerHand,
+  addDealerHand,
+  toggleBlackJackState,
+  subtractBlackJackPlayerMoney,
+  addBlackJackPlayerMoney,
+  setBlackJackPlayerBet,
+  setBlackJackPlayerScore,
+  setBlackJackDealerScore,
+  resetPlayerHand,
+  resetDealerHand,
+  toggleBlackJackGameMode,
+  setBlackJackGameMode,
+  setBlackJackState,
+  setBlackJackGameResult,
+} from "./actions";
 
 function deckInit() {
   let deck = [];
@@ -18,15 +35,13 @@ function deckInit() {
   return deck;
 }
 
-const DEFAULT_DECK_STATE = deckInit();
-
-export const cardReducer = (state = DEFAULT_DECK_STATE, action) => {
+export const cardReducer = (state = deckInit(), action) => {
   switch (action.type) {
     case getACard.type:
       state.splice(state.indexOf(action.payload), 1);
       return state;
     case resetDeck.type:
-      return state;
+      return deckInit();
     default:
       return state;
   }
@@ -36,6 +51,84 @@ export const playerHandReducer = (state = [], action) => {
   switch (action.type) {
     case addPlayerHand.type:
       return [...state, action.payload];
+    case resetPlayerHand.type:
+      return [];
+    default:
+      return state;
+  }
+};
+
+export const dealerHandReducer = (state = [], action) => {
+  switch (action.type) {
+    case addDealerHand.type:
+      return [...state, action.payload];
+    case resetDealerHand.type:
+      return [];
+    default:
+      return state;
+  }
+};
+
+export const blackJackStateReducer = (state = false, action) => {
+  switch (action.type) {
+    case setBlackJackState.type:
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
+export const blackJackPlayerScoreReducer = (state = 0, action) => {
+  switch (action.type) {
+    case setBlackJackPlayerScore.type:
+      return state + 1;
+    default:
+      return state;
+  }
+};
+
+export const blackJackDealerScoreReducer = (state = 0, action) => {
+  switch (action.type) {
+    case setBlackJackDealerScore.type:
+      return state + 1;
+    default:
+      return state;
+  }
+};
+
+export const blackJackPlayerMoneyReducer = (state = 2500, action) => {
+  switch (action.type) {
+    case subtractBlackJackPlayerMoney.type:
+      return state - action.payload;
+    case addBlackJackPlayerMoney.type:
+      return state + action.payload;
+    default:
+      return state;
+  }
+};
+
+export const blackJackPlayerBetReducer = (state = 0, action) => {
+  switch (action.type) {
+    case setBlackJackPlayerBet.type:
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
+export const blackJackGameModeReducer = (state = false, action) => {
+  switch (action.type) {
+    case setBlackJackGameMode.type:
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
+export const blackJackGameResultReducer = (state = null, action) => {
+  switch (action.type) {
+    case setBlackJackGameResult.type:
+      return action.payload;
     default:
       return state;
   }

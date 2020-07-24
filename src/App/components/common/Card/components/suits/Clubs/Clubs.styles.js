@@ -2,7 +2,7 @@ import { createUseStyles } from "react-jss";
 
 const COLOR = "green";
 const DIAMETER = 20;
-const OFFSET_TOP = 60;
+const OFFSET_TOP = 65;
 const OFFSET_SIDE = 40;
 
 export const useStyles = createUseStyles({

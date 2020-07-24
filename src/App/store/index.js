@@ -1,10 +1,31 @@
 import { combineReducers, createStore, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension/developmentOnly";
-import { cardReducer, playerHandReducer } from "./reducers";
+import {
+  cardReducer,
+  playerHandReducer,
+  dealerHandReducer,
+  blackJackStateReducer,
+  blackJackPlayerScoreReducer,
+  blackJackPlayerMoneyReducer,
+  blackJackPlayerBetReducer,
+  blackJackDealerScoreReducer,
+  blackJackGameModeReducer,
+  blackJackGameResultReducer,
+} from "./reducers";
 
 const rootReducer = combineReducers({
   deck: cardReducer,
   playerHand: playerHandReducer,
+  dealerHand: dealerHandReducer,
+  blackJack: combineReducers({
+    state: blackJackStateReducer,
+    playerScore: blackJackPlayerScoreReducer,
+    dealerScore: blackJackDealerScoreReducer,
+    playerMoney: blackJackPlayerMoneyReducer,
+    playerBet: blackJackPlayerBetReducer,
+    gameIsOn: blackJackGameModeReducer,
+    lastGameResult: blackJackGameResultReducer,
+  }),
 });
 
 export const store = createStore(
