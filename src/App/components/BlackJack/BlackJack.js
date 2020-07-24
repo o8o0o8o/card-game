@@ -32,6 +32,7 @@ import {
 import { useStyles } from "./BlackJack.styles";
 import { ChipHolder } from "../common/ChipHolder/ChipHolder";
 import { DealerHand } from "./components/DealerHand/DealerHand";
+import { Footer } from "../common/Footer/Footer";
 
 export const BlackJack = () => {
   const classes = useStyles();
@@ -97,7 +98,7 @@ export const BlackJack = () => {
         dispatch(setBlackJackGameMode(false));
       }
     }
-  }, [dealerHand, dispatch, gameIsOn, isItEndOfTheGame, playerHand]);
+  }, [dealerHand, dispatch, gameIsOn, isItEndOfTheGame, playerBet, playerHand]);
 
   const addCardToPlayerHand = useCallback(() => {
     if (!isItEndOfTheGame) {
@@ -150,6 +151,9 @@ export const BlackJack = () => {
           <Button text="Hit" callback={addCardToPlayerHand} />
           <Button text="Stand" callback={addCardToDealerHand} />
         </div>
+      </div>
+      <div className={classes.footer}>
+        <Footer />
       </div>
     </div>
   );
