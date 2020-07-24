@@ -14,9 +14,9 @@ export const Card = ({ suit, rank, back, effect }) => {
   const changeBackOfCard = useMemo(() => {
     switch (back) {
       case "gradient":
-        return <Base element={<Gradient />} />;
+        return <Gradient />;
       default:
-        return <Base />;
+        return <Gradient />;
     }
   }, [back]);
 
@@ -39,6 +39,8 @@ export const Card = ({ suit, rank, back, effect }) => {
     switch (effect) {
       case "flip":
         return <Flip back={changeBackOfCard} front={changeSuitOfCard} />;
+      case "faceDown":
+        return <Base back={changeBackOfCard} />;
       default:
         return <Base suit={changeSuitOfCard} rank={changeCardRank} />;
     }

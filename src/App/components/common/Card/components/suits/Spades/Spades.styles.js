@@ -2,7 +2,7 @@ import { createUseStyles } from "react-jss";
 
 const COLOR = "black";
 const DIAMETER = 20;
-const OFFSET_TOP = 60;
+const OFFSET_TOP = 55;
 const OFFSET_SIDE = 40;
 const BACKGROUND = "white";
 

@@ -1,16 +1,35 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect } from "react";
 import PropTypes from "prop-types";
+import { useSelector, useDispatch } from "react-redux";
 
 import { useStyles } from "./PlayerHand.styles";
-import { useSelector } from "react-redux";
-import { playerHandSelector } from "../../../../store/selectors";
+import {
+  playerHandSelector,
+  deckSelector,
+  blackJackGameModeSelector,
+} from "../../../../store/selectors";
 import { Card } from "../../../common/Card/Card";
+import { addPlayerHand, getACard } from "../../../../store/actions";
 
 export const PlayerHand = ({ value, color }) => {
   const classes = useStyles();
   const playerHand = useSelector(playerHandSelector);
+  const deck = useSelector(deckSelector);
+  const dispatch = useDispatch();
+  const gameIsOn = useSelector(blackJackGameModeSelector);
 
-  const getACard = useMemo(
+  useEffect(() => {
+    if (gameIsOn) {
+      let card = deck[Math.round(Math.random() * deck.length)];
+      dispatch(addPlayerHand(card));
+      dispatch(getACard(card));
+      card = deck[Math.round(Math.random() * deck.length)];
+      dispatch(addPlayerHand(card));
+      dispatch(getACard(card));
+    }
+  }, [deck, dispatch, gameIsOn]);
+
+  const newCard = useMemo(
     () =>
       playerHand.map((el) => (
         <Card
@@ -24,7 +43,7 @@ export const PlayerHand = ({ value, color }) => {
     [playerHand]
   );
 
-  return <div className={classes.playerHand}>{getACard}</div>;
+  return <div className={classes.playerHand}>{newCard}</div>;
 };
 
 PlayerHand.propTypes = {
