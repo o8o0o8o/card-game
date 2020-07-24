@@ -139,32 +139,32 @@ export const BlackJack = () => {
       <Errors />
       <div className={classes.chipHolder}>
         <ChipHolder />
-      <div className={classes.moneyComponents}>
-        <div className={classes.chipHolder}>
-          <ChipHolder />
+        <div className={classes.moneyComponents}>
+          <div className={classes.chipHolder}>
+            <ChipHolder />
+          </div>
+          <div>{`Player money ${playerMoney}`}</div>
+          <div>{`Player bet ${playerBet}`}</div>
         </div>
-        <div>{`Player money ${playerMoney}`}</div>
-        <div>{`Player bet ${playerBet}`}</div>
-      </div>
-      <div>{`Player score ${playerScore}`}</div>
-      <div>{`Dealer score ${dealerScore}`}</div>
-      <div>{lastGameResult}</div>
-      <div className={classes.playerHand}>
-        <PlayerHand />
-      </div>
-      <div className={classes.dealerHand}>
-        <DealerHand />
-      </div>
-
-      <div className={classes.buttonsContainer}>
-        <div className={classes.buttonsSplit}>
-          <Button text="Start" callback={startGame} />
-          <Button text="Hit" callback={addCardToPlayerHand} />
-          <Button text="Stand" callback={addCardToDealerHand} />
+        <div>{`Player score ${playerScore}`}</div>
+        <div>{`Dealer score ${dealerScore}`}</div>
+        <div>{lastGameResult}</div>
+        <div className={classes.playerHand}>
+          <PlayerHand />
         </div>
-      </div>
-      <div className={classes.footer}>
-        <Footer />
+        <div className={classes.dealerHand}>
+          <DealerHand />
+        </div>
+        <div className={classes.buttonsContainer}>
+          <div className={classes.buttonsSplit}>
+            <Button text="Start" callback={startGame} />
+            <Button text="Hit" callback={addCardToPlayerHand} />
+            <Button text="Stand" callback={addCardToDealerHand} />
+          </div>
+        </div>
+        <div className={classes.footer}>
+          <Footer />
+        </div>
       </div>
     </div>
   );
