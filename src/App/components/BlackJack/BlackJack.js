@@ -59,6 +59,7 @@ export const BlackJack = () => {
           if (["K", "J", "Q", "A"].includes(val)) {
             return 10;
           }
+          return el;
         })
         .reduce((a, b) => a + b, 0);
       const dealerPoints = dealerHand
@@ -70,6 +71,7 @@ export const BlackJack = () => {
           if (["K", "J", "Q", "A"].includes(val)) {
             return 10;
           }
+          return el;
         })
         .reduce((a, b) => a + b, 0);
       if (playerPoints === 21 || dealerPoints > 21) {
