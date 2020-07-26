@@ -12,7 +12,6 @@ import {
   blackJackPlayerScoreSelector,
   blackJackDealerScoreSelector,
   blackJackGameModeSelector,
-  blackJackGameResultSelector,
 } from "../../store/selectors";
 import {
   addPlayerHand,
@@ -48,7 +47,6 @@ export const BlackJack = () => {
   const dealerScore = useSelector(blackJackDealerScoreSelector);
   const playerMoney = useSelector(blackJackPlayerMoneySelector);
   const [isItEndOfTheGame, setIsItEndOfTheGame] = useState(false);
-  const lastGameResult = useSelector(blackJackGameResultSelector);
 
   useEffect(() => {
     if (!isItEndOfTheGame && gameIsOn) {
@@ -122,13 +120,21 @@ export const BlackJack = () => {
     }
   }, [deck, dispatch, isItEndOfTheGame]);
 
-  const addCardToDealerHand = useCallback(() => {
-    if (!isItEndOfTheGame) {
+  const dealerHelper = useCallback(() => {
+    if (!isItEndOfTheGame && gameIsOn) {
       const card = deck[Math.round(Math.random() * deck.length)];
       dispatch(addDealerHand(card));
       dispatch(getACard(card));
     }
-  }, [deck, dispatch, isItEndOfTheGame]);
+  }, [deck, dispatch, gameIsOn, isItEndOfTheGame]);
+
+  const addCardToDealerHand = useCallback(() => {
+    dealerHelper();
+    if (!gameIsOn) {
+      dispatch(addError("Start a game"));
+    }
+    setTimeout(() => dealerHelper(), 1000);
+  }, [dealerHelper, dispatch, gameIsOn]);
 
   const startGame = useCallback(() => {
     if (playerBet && !gameIsOn) {
