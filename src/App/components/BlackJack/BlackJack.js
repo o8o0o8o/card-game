@@ -85,6 +85,11 @@ export const BlackJack = () => {
             `Player wins with ${playerPoints} points vs. ${dealerPoints} Dealer points `
           )
         );
+        dispatch(
+          addError(
+            `Player wins with ${playerPoints} points vs. ${dealerPoints} Dealer points `
+          )
+        );
         dispatch(setBlackJackPlayerBet(0));
         dispatch(setBlackJackGameMode(false));
         dispatch(addBlackJackPlayerMoney(playerBet));
@@ -98,6 +103,11 @@ export const BlackJack = () => {
             `Dealer wins with ${dealerPoints} points vs. ${playerPoints} Player points `
           )
         );
+        dispatch(
+          addError(
+            `Dealer wins with ${dealerPoints} points vs. ${playerPoints} Player points `
+          )
+        );
         dispatch(setBlackJackPlayerBet(0));
         dispatch(setBlackJackGameMode(false));
       }
@@ -105,20 +115,30 @@ export const BlackJack = () => {
   }, [dealerHand, dispatch, gameIsOn, isItEndOfTheGame, playerBet, playerHand]);
 
   const addCardToPlayerHand = useCallback(() => {
-    if (!isItEndOfTheGame) {
+    if (!isItEndOfTheGame && gameIsOn) {
       const card = deck[Math.round(Math.random() * deck.length)];
       dispatch(addPlayerHand(card));
       dispatch(getACard(card));
+    } else {
+      dispatch(addError("Start a game"));
     }
-  }, [deck, dispatch, isItEndOfTheGame]);
+  }, [deck, dispatch, gameIsOn, isItEndOfTheGame]);
 
-  const addCardToDealerHand = useCallback(() => {
-    if (!isItEndOfTheGame) {
+  const dealerHelper = useCallback(() => {
+    if (!isItEndOfTheGame && gameIsOn) {
       const card = deck[Math.round(Math.random() * deck.length)];
       dispatch(addDealerHand(card));
       dispatch(getACard(card));
     }
-  }, [deck, dispatch, isItEndOfTheGame]);
+  }, [deck, dispatch, gameIsOn, isItEndOfTheGame]);
+
+  const addCardToDealerHand = useCallback(() => {
+    dealerHelper();
+    if (!gameIsOn) {
+      dispatch(addError("Start a game"));
+    }
+    setTimeout(() => dealerHelper(), 1000);
+  }, [dealerHelper, dispatch, gameIsOn]);
 
   const startGame = useCallback(() => {
     if (playerBet && !gameIsOn) {
