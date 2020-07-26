@@ -2,8 +2,8 @@ import { createUseStyles } from "react-jss";
 
 export const useStyles = createUseStyles({
   btn: {
-    width: "80px",
-    height: "30px",
+    width: "100px",
+    height: "50px",
     fontSize: "16px",
     fontWeight: "600",
     color: "#fff",

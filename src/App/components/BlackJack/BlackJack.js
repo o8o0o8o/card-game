@@ -82,12 +82,12 @@ export const BlackJack = () => {
         setIsItEndOfTheGame(true);
         dispatch(
           setBlackJackGameResult(
-            `Player wins with ${playerPoints} points vs. ${dealerPoints} Dealer points `
+            `Player wins with ${playerPoints} points vs. ${dealerPoints} Dealer points`
           )
         );
         dispatch(
           addError(
-            `Player wins with ${playerPoints} points vs. ${dealerPoints} Dealer points `
+            `Player wins with ${playerPoints} points vs. ${dealerPoints} Dealer points`
           )
         );
         dispatch(setBlackJackPlayerBet(0));
@@ -100,12 +100,12 @@ export const BlackJack = () => {
         setIsItEndOfTheGame(true);
         dispatch(
           setBlackJackGameResult(
-            `Dealer wins with ${dealerPoints} points vs. ${playerPoints} Player points `
+            `Dealer wins with ${dealerPoints} points vs. ${playerPoints} Player points`
           )
         );
         dispatch(
           addError(
-            `Dealer wins with ${dealerPoints} points vs. ${playerPoints} Player points `
+            `Dealer wins with ${dealerPoints} points vs. ${playerPoints} Player points`
           )
         );
         dispatch(setBlackJackPlayerBet(0));
@@ -115,30 +115,20 @@ export const BlackJack = () => {
   }, [dealerHand, dispatch, gameIsOn, isItEndOfTheGame, playerBet, playerHand]);
 
   const addCardToPlayerHand = useCallback(() => {
-    if (!isItEndOfTheGame && gameIsOn) {
+    if (!isItEndOfTheGame) {
       const card = deck[Math.round(Math.random() * deck.length)];
       dispatch(addPlayerHand(card));
       dispatch(getACard(card));
-    } else {
-      dispatch(addError("Start a game"));
     }
-  }, [deck, dispatch, gameIsOn, isItEndOfTheGame]);
+  }, [deck, dispatch, isItEndOfTheGame]);
 
-  const dealerHelper = useCallback(() => {
-    if (!isItEndOfTheGame && gameIsOn) {
+  const addCardToDealerHand = useCallback(() => {
+    if (!isItEndOfTheGame) {
       const card = deck[Math.round(Math.random() * deck.length)];
       dispatch(addDealerHand(card));
       dispatch(getACard(card));
     }
-  }, [deck, dispatch, gameIsOn, isItEndOfTheGame]);
-
-  const addCardToDealerHand = useCallback(() => {
-    dealerHelper();
-    if (!gameIsOn) {
-      dispatch(addError("Start a game"));
-    }
-    setTimeout(() => dealerHelper(), 1000);
-  }, [dealerHelper, dispatch, gameIsOn]);
+  }, [deck, dispatch, isItEndOfTheGame]);
 
   const startGame = useCallback(() => {
     if (playerBet && !gameIsOn) {
@@ -156,28 +146,31 @@ export const BlackJack = () => {
 
   return (
     <div className={classes.background}>
-      <Errors />
-      <div className={classes.moneyComponents}>
-        <div className={classes.chipHolder}>
-          <ChipHolder />
+      <div className={classes.mainContainer}>
+        <div className={classes.buttonsContainer}>
+          <div className={classes.buttonsSplit}>
+            <Button text="Start" callback={startGame} />
+            <Button text="Hit" callback={addCardToPlayerHand} />
+            <Button text="Stand" callback={addCardToDealerHand} />
+          </div>
         </div>
-        <div>{`Player money ${playerMoney}`}</div>
-        <div>{`Player bet ${playerBet}`}</div>
+        <div className={classes.moneyContainer}>
+          <div className={classes.chipHolder}>
+            <ChipHolder />
+          </div>
+          <div>{`Player money ${playerMoney}`}</div>
+          <div>{`Player bet ${playerBet}`}</div>
+        </div>
       </div>
-      <div>{`Player score ${playerScore}`}</div>
-      <div>{`Dealer score ${dealerScore}`}</div>
-      <div>{lastGameResult}</div>
-      <div className={classes.playerHand}>
-        <PlayerHand />
-      </div>
-      <div className={classes.dealerHand}>
-        <DealerHand />
-      </div>
-      <div className={classes.buttonsContainer}>
-        <div className={classes.buttonsSplit}>
-          <Button text="Start" callback={startGame} />
-          <Button text="Hit" callback={addCardToPlayerHand} />
-          <Button text="Stand" callback={addCardToDealerHand} />
+      <Errors />
+      <div className={classes.cardsRow}>
+        <div className={classes.playerHand}>
+          <PlayerHand />
+          <div>{`Player score ${playerScore}`}</div>
+        </div>
+        <div className={classes.dealerHand}>
+          <DealerHand />
+          <div>{`Dealer score ${dealerScore}`}</div>
         </div>
       </div>
       <div className={classes.footer}>
