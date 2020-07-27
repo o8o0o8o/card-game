@@ -6,24 +6,25 @@ export const useStyles = createUseStyles({
     height: "100vh",
     backgroundColor: "gray",
     zIndex: "-1",
-    overflow: "hidden",
   },
-  playerHand: {
+  cardsRow: {
     position: "relative",
-    top: 100,
+    top: "-90%",
+    display: "flex",
   },
+  playerHand: {},
   dealerHand: {
     position: "relative",
-    top: 100,
-    left: "50vw",
+    left: "20%",
   },
-  buttonsContainer: {
+  mainContainer: {
     width: "100%",
     height: "100%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
   },
+  buttonsContainer: {},
   buttonsSplit: {
     width: "500px",
     display: "flex",
@@ -31,14 +32,23 @@ export const useStyles = createUseStyles({
   },
   chipHolder: {
     position: "relative",
-    top: "3rem",
+    left: "-300px",
   },
-  moneyComponents: {
+  moneyContainer: {
     position: "relative",
-    top: 400,
+    top: "100px",
+    left: "-200px",
   },
   footer: {
     position: "absolute",
     bottom: 10,
+  },
+  "@media (max-width: 550px)": {
+    mainContainer: {
+      transform: "scale(0.7)",
+    },
+    cardsRow: {
+      transform: "scale(0.7)",
+    },
   },
 });
