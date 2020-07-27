@@ -11,11 +11,20 @@ export const useStyles = createUseStyles({
     position: "relative",
     top: "-90%",
     display: "flex",
+    transform: "scale(1)",
   },
-  playerHand: {},
-  dealerHand: {
+  player: {},
+  playerHand: {
+    position: "relative",
+    top: "2rem",
+  },
+  dealer: {
     position: "relative",
     left: "20%",
+  },
+  dealerHand: {
+    position: "relative",
+    top: "2rem",
   },
   mainContainer: {
     width: "100%",
@@ -23,6 +32,7 @@ export const useStyles = createUseStyles({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    transform: "scale(1)",
   },
   buttonsContainer: {},
   buttonsSplit: {
@@ -42,6 +52,7 @@ export const useStyles = createUseStyles({
   footer: {
     position: "absolute",
     bottom: 10,
+    left: 10,
   },
   "@media (max-width: 550px)": {
     mainContainer: {
