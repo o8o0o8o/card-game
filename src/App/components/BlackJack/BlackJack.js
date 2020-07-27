@@ -170,12 +170,16 @@ export const BlackJack = () => {
       </div>
       <Errors />
       <div className={classes.cardsRow}>
-        <div className={classes.playerHand}>
-          <PlayerHand />
+        <div className={classes.player}>
+          <div className={classes.playerHand}>
+            <PlayerHand />
+          </div>
           <div>{`Player score ${playerScore}`}</div>
         </div>
-        <div className={classes.dealerHand}>
-          <DealerHand />
+        <div className={classes.dealer}>
+          <div className={classes.dealerHand}>
+            <DealerHand />
+          </div>
           <div>{`Dealer score ${dealerScore}`}</div>
         </div>
       </div>
