@@ -6,6 +6,22 @@ export const useStyles = createUseStyles({
   mainContainer: {
     userSelect: "none",
   },
+  "@keyframes spin": {
+    from: { transform: "rotate(0deg)" },
+    to: { transform: "rotate(360deg)" },
+  },
+  "@keyframes moveLeftToRight": {
+    "0%": { left: "0" },
+    "100%": { left: "-40vw" },
+  },
+  chipAnimate: {
+    animation: "$spin 1s linear 1, $moveLeftToRight 1s linear 1",
+  },
+  chip: {
+    "&:hover": {
+      transform: "scale(1.1)",
+    },
+  },
   chip1: {
     position: "absolute",
   },

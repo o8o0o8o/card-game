@@ -113,12 +113,14 @@ export const BlackJack = () => {
   }, [dealerHand, dispatch, gameIsOn, isItEndOfTheGame, playerBet, playerHand]);
 
   const addCardToPlayerHand = useCallback(() => {
-    if (!isItEndOfTheGame) {
+    if (!isItEndOfTheGame && gameIsOn) {
       const card = deck[Math.round(Math.random() * deck.length)];
       dispatch(addPlayerHand(card));
       dispatch(getACard(card));
+    } else {
+      dispatch(addError("Start a game"));
     }
-  }, [deck, dispatch, isItEndOfTheGame]);
+  }, [deck, dispatch, gameIsOn, isItEndOfTheGame]);
 
   const dealerHelper = useCallback(() => {
     if (!isItEndOfTheGame && gameIsOn) {
@@ -145,6 +147,9 @@ export const BlackJack = () => {
       setIsItEndOfTheGame(false);
       dispatch(setBlackJackState(false));
       dispatch(setBlackJackGameResult(null));
+    }
+    if (gameIsOn) {
+      dispatch(addError("Game is on"));
     } else {
       dispatch(addError("Make a bet"));
     }
