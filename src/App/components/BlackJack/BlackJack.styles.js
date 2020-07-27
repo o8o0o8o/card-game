@@ -43,5 +43,12 @@ export const useStyles = createUseStyles({
     position: "absolute",
     bottom: 10,
   },
-  "@media (max-width: 550px)": {},
+  "@media (max-width: 550px)": {
+    mainContainer: {
+      transform: "scale(0.7)",
+    },
+    cardsRow: {
+      transform: "scale(0.7)",
+    },
+  },
 });
