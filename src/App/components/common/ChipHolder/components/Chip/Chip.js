@@ -7,28 +7,13 @@ export const Chip = ({ value, color }) => {
   const classes = useStyles();
 
   const drawOuterRing = useMemo(() => {
-    switch (color) {
-      case "red":
-        return <div className={`${classes.outerCircle} ${classes.red}`}></div>;
-      case "green":
-        return (
-          <div className={`${classes.outerCircle} ${classes.green}`}></div>
-        );
-      case "blue":
-        return <div className={`${classes.outerCircle} ${classes.blue}`}></div>;
-      case "gray":
-        return <div className={`${classes.outerCircle} ${classes.gray}`}></div>;
-      default:
-        return <div className={`${classes.outerCircle} ${classes.red}`}></div>;
-    }
-  }, [
-    classes.blue,
-    classes.gray,
-    classes.green,
-    classes.outerCircle,
-    classes.red,
-    color,
-  ]);
+    return (
+      <div
+        className={classes.outerCircle}
+        style={{ background: `${color}` }}
+      ></div>
+    );
+  }, [classes.outerCircle, color]);
 
   return (
     <div>

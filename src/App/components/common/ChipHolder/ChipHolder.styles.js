@@ -12,7 +12,7 @@ export const useStyles = createUseStyles({
   },
   "@keyframes moveLeftToRight": {
     "0%": { left: "0" },
-    "100%": { left: "-40vw" },
+    "100%": { left: -200 },
   },
   chipAnimate: {
     animation: "$spin 1s linear 1, $moveLeftToRight 1s linear 1",
@@ -37,5 +37,16 @@ export const useStyles = createUseStyles({
     position: "absolute",
     top: 1.5 * DIAMETER,
     left: 1.5 * DIAMETER,
+  },
+  playerBet: {
+    position: "relative",
+    right: 200,
+  },
+  playerBetAnimate: {
+    animation: "$spin 1s linear 1, $moveToStack 1s linear 1",
+  },
+  "@keyframes moveToStack": {
+    "0%": { left: -200 },
+    "100%": { left: 0 },
   },
 });
