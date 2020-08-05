@@ -25,14 +25,14 @@ import {
   resetPlayerHand,
   setBlackJackState,
   setBlackJackGameResult,
-  setBlackJackPlayerBet,
   addBlackJackPlayerMoney,
+  subtractBlackJackPlayerMoney,
 } from "../../store/actions";
 import { useStyles } from "./BlackJack.styles";
 import { ChipHolder } from "../common/ChipHolder/ChipHolder";
 import { DealerHand } from "./components/DealerHand/DealerHand";
 import { Footer } from "../common/Footer/Footer";
-import { addError } from "../common/errors/store/Errors.actions";
+import { addError, resetErrors } from "../common/errors/store/Errors.actions";
 import { Errors } from "../common/errors/Errors";
 
 export const BlackJack = () => {
@@ -88,7 +88,8 @@ export const BlackJack = () => {
             `Player wins with ${playerPoints} points vs. ${dealerPoints} Dealer points`
           )
         );
-        dispatch(setBlackJackPlayerBet(0));
+        setTimeout(() => dispatch(resetErrors()), 5000);
+        //dispatch(setBlackJackPlayerBet(0));
         dispatch(setBlackJackGameMode(false));
         dispatch(addBlackJackPlayerMoney(playerBet));
       }
@@ -106,7 +107,8 @@ export const BlackJack = () => {
             `Dealer wins with ${dealerPoints} points vs. ${playerPoints} Player points`
           )
         );
-        dispatch(setBlackJackPlayerBet(0));
+        setTimeout(() => dispatch(resetErrors()), 5000);
+        //dispatch(setBlackJackPlayerBet(0));
         dispatch(setBlackJackGameMode(false));
       }
     }
@@ -140,6 +142,7 @@ export const BlackJack = () => {
 
   const startGame = useCallback(() => {
     if (playerBet && !gameIsOn) {
+      dispatch(subtractBlackJackPlayerMoney(playerBet));
       dispatch(setBlackJackGameMode(true));
       dispatch(resetDeck());
       dispatch(resetDealerHand());
@@ -150,8 +153,10 @@ export const BlackJack = () => {
     }
     if (gameIsOn) {
       dispatch(addError("Game is on"));
-    } else {
+    }
+    if (!playerBet) {
       dispatch(addError("Make a bet"));
+      setTimeout(() => dispatch(resetErrors()), 5000);
     }
   }, [dispatch, gameIsOn, playerBet]);
 
@@ -160,9 +165,16 @@ export const BlackJack = () => {
       <div className={classes.mainContainer}>
         <div className={classes.buttonsContainer}>
           <div className={classes.buttonsSplit}>
-            <Button text="Start" callback={startGame} />
-            <Button text="Hit" callback={addCardToPlayerHand} />
-            <Button text="Stand" callback={addCardToDealerHand} />
+            {gameIsOn ? (
+              <div className={classes.buttonsSplit}>
+                <Button text="Hit" callback={addCardToPlayerHand} />
+                <Button text="Stand" callback={addCardToDealerHand} />
+              </div>
+            ) : (
+              <div className={classes.pulser}>
+                <Button text="Deal" callback={startGame} />
+              </div>
+            )}
           </div>
         </div>
         <div className={classes.moneyContainer}>

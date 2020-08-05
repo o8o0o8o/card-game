@@ -69,16 +69,4 @@ export const useStyles = createUseStyles({
     justifyContent: "center",
     alignItems: "center",
   },
-  red: {
-    background: "red",
-  },
-  green: {
-    background: "green",
-  },
-  blue: {
-    background: "blue",
-  },
-  gray: {
-    background: "gray",
-  },
 });

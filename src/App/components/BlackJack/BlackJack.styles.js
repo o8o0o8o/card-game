@@ -12,6 +12,7 @@ export const useStyles = createUseStyles({
     top: "-90%",
     display: "flex",
     transform: "scale(1)",
+    margin: 10,
   },
   player: {},
   playerHand: {
@@ -34,9 +35,14 @@ export const useStyles = createUseStyles({
     alignItems: "center",
     transform: "scale(1)",
   },
-  buttonsContainer: {},
+  buttonsContainer: {
+    width: "400px",
+    display: "flex",
+    justifyContent: "space-between",
+    marginLeft: "100px",
+  },
   buttonsSplit: {
-    width: "500px",
+    width: "600px",
     display: "flex",
     justifyContent: "space-between",
   },
@@ -60,6 +66,16 @@ export const useStyles = createUseStyles({
     },
     cardsRow: {
       transform: "scale(0.7)",
+    },
+  },
+  "@keyframes pulse": {
+    from: { transform: "scale(1)" },
+    to: { transform: "scale(1.1)" },
+  },
+  pulser: {
+    animation: "$pulse 1s infinite",
+    "&:hover": {
+      animation: "none",
     },
   },
 });
