@@ -9,9 +9,8 @@ import {
   dealerHandSelector,
   blackJackPlayerMoneySelector,
   blackJackPlayerBetSelector,
-  blackJackPlayerScoreSelector,
-  blackJackDealerScoreSelector,
   blackJackGameModeSelector,
+  blackJackStateSelector,
 } from "../../store/selectors";
 import {
   addPlayerHand,
@@ -43,76 +42,88 @@ export const BlackJack = () => {
   const dealerHand = useSelector(dealerHandSelector);
   const gameIsOn = useSelector(blackJackGameModeSelector);
   const playerBet = useSelector(blackJackPlayerBetSelector);
-  const playerScore = useSelector(blackJackPlayerScoreSelector);
-  const dealerScore = useSelector(blackJackDealerScoreSelector);
   const playerMoney = useSelector(blackJackPlayerMoneySelector);
   const [isItEndOfTheGame, setIsItEndOfTheGame] = useState(false);
+  const [currentPlayerPoints, setCurrentPlayerPoints] = useState(0);
+  const [currentDealerPoints, setCurrentDealerPoints] = useState(0);
+  const isItEnd = useSelector(blackJackStateSelector);
 
   useEffect(() => {
-    if (!isItEndOfTheGame && gameIsOn) {
-      const playerPoints = playerHand
-        .map((el) => {
-          const val = el.match(/(?<=_).*/)[0];
-          if (+val) {
-            return +val;
-          }
-          if (["K", "J", "Q", "A"].includes(val)) {
-            return 10;
-          }
-          return el;
-        })
-        .reduce((a, b) => a + b, 0);
-      const dealerPoints = dealerHand
-        .map((el) => {
-          const val = el.match(/(?<=_).*/)[0];
-          if (+val) {
-            return +val;
-          }
-          if (["K", "J", "Q", "A"].includes(val)) {
-            return 10;
-          }
-          return el;
-        })
-        .reduce((a, b) => a + b, 0);
-      if (playerPoints === 21 || dealerPoints > 21) {
-        dispatch(setBlackJackPlayerScore());
-        dispatch(setBlackJackState(true));
-        setIsItEndOfTheGame(true);
-        dispatch(
-          setBlackJackGameResult(
-            `Player wins with ${playerPoints} points vs. ${dealerPoints} Dealer points`
-          )
-        );
-        dispatch(
-          addError(
-            `Player wins with ${playerPoints} points vs. ${dealerPoints} Dealer points`
-          )
-        );
-        setTimeout(() => dispatch(resetErrors()), 5000);
-        //dispatch(setBlackJackPlayerBet(0));
-        dispatch(setBlackJackGameMode(false));
-        dispatch(addBlackJackPlayerMoney(playerBet));
-      }
-      if (dealerPoints === 21 || playerPoints > 21) {
-        dispatch(setBlackJackDealerScore());
-        dispatch(setBlackJackState(true));
-        setIsItEndOfTheGame(true);
-        dispatch(
-          setBlackJackGameResult(
-            `Dealer wins with ${dealerPoints} points vs. ${playerPoints} Player points`
-          )
-        );
-        dispatch(
-          addError(
-            `Dealer wins with ${dealerPoints} points vs. ${playerPoints} Player points`
-          )
-        );
-        setTimeout(() => dispatch(resetErrors()), 5000);
-        //dispatch(setBlackJackPlayerBet(0));
-        dispatch(setBlackJackGameMode(false));
-      }
+    const playerPoints = playerHand
+      .map((el) => {
+        const val = el.match(/(?<=_).*/)[0];
+        if (+val) {
+          return +val;
+        }
+        if (["K", "J", "Q", "A"].includes(val)) {
+          return 10;
+        }
+        return el;
+      })
+      .reduce((a, b) => a + b, 0);
+    setCurrentPlayerPoints(playerPoints);
+    const dealerPoints = dealerHand
+      .map((el, i) => {
+        const val = el.match(/(?<=_).*/)[0];
+        if (i === dealerHand.length - 1 && !isItEnd) {
+          return 0;
+        }
+        if (+val) {
+          return +val;
+        }
+        if (["K", "J", "Q", "A"].includes(val)) {
+          return 10;
+        }
+        return el;
+      })
+      .reduce((a, b) => a + b, 0);
+    setCurrentDealerPoints(dealerPoints);
+    if (playerPoints === 21 || dealerPoints > 21) {
+      dispatch(setBlackJackPlayerScore());
+      dispatch(setBlackJackState(true));
+      setIsItEndOfTheGame(true);
+      dispatch(
+        setBlackJackGameResult(
+          `Player wins with ${playerPoints} points vs. ${dealerPoints} Dealer points`
+        )
+      );
+      dispatch(
+        addError(
+          `Player wins with ${playerPoints} points vs. ${dealerPoints} Dealer points`
+        )
+      );
+      setTimeout(() => dispatch(resetErrors()), 5000);
+      dispatch(setBlackJackGameMode(false));
+      dispatch(addBlackJackPlayerMoney(playerBet));
     }
-  }, [dealerHand, dispatch, gameIsOn, isItEndOfTheGame, playerBet, playerHand]);
+    if (dealerPoints === 21 || playerPoints > 21) {
+      dispatch(setBlackJackDealerScore());
+      dispatch(setBlackJackState(true));
+      setIsItEndOfTheGame(true);
+      dispatch(
+        setBlackJackGameResult(
+          `Dealer wins with ${dealerPoints} points vs. ${playerPoints} Player points`
+        )
+      );
+      dispatch(
+        addError(
+          `Dealer wins with ${dealerPoints} points vs. ${playerPoints} Player points`
+        )
+      );
+      setTimeout(() => dispatch(resetErrors()), 5000);
+      dispatch(setBlackJackGameMode(false));
+    }
+    if (!isItEndOfTheGame && gameIsOn) {
+    }
+  }, [
+    dealerHand,
+    dispatch,
+    gameIsOn,
+    isItEnd,
+    isItEndOfTheGame,
+    playerBet,
+    playerHand,
+  ]);
 
   const addCardToPlayerHand = useCallback(() => {
     if (!isItEndOfTheGame && gameIsOn) {
@@ -181,8 +192,7 @@ export const BlackJack = () => {
           <div className={classes.chipHolder}>
             <ChipHolder />
           </div>
-          <div>{`Player money ${playerMoney}`}</div>
-          <div>{`Player bet ${playerBet}`}</div>
+          <div className={classes.money}>{`$${playerMoney}`}</div>
         </div>
       </div>
       <Errors />
@@ -191,13 +201,13 @@ export const BlackJack = () => {
           <div className={classes.playerHand}>
             <PlayerHand />
           </div>
-          <div>{`Player score ${playerScore}`}</div>
+          <div className={classes.scorePlate}>{currentPlayerPoints}</div>
         </div>
         <div className={classes.dealer}>
           <div className={classes.dealerHand}>
             <DealerHand />
           </div>
-          <div>{`Dealer score ${dealerScore}`}</div>
+          <div className={classes.scorePlate}>{currentDealerPoints}</div>
         </div>
       </div>
       <div className={classes.footer}>
