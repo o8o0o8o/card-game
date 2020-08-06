@@ -36,13 +36,13 @@ export const useStyles = createUseStyles({
     transform: "scale(1)",
   },
   buttonsContainer: {
-    width: "400px",
+    width: "300px",
     display: "flex",
     justifyContent: "space-between",
     marginLeft: "100px",
   },
   buttonsSplit: {
-    width: "600px",
+    width: "300px",
     display: "flex",
     justifyContent: "space-between",
   },
@@ -61,11 +61,19 @@ export const useStyles = createUseStyles({
     left: 10,
   },
   "@media (max-width: 550px)": {
+    background: {
+      transform: "scale(1)",
+    },
     mainContainer: {
+      position: "relative",
+      left: "120px",
       transform: "scale(0.7)",
     },
     cardsRow: {
       transform: "scale(0.7)",
+    },
+    buttonsContainer: {
+      marginLeft: "0",
     },
   },
   "@keyframes pulse": {
@@ -77,5 +85,17 @@ export const useStyles = createUseStyles({
     "&:hover": {
       animation: "none",
     },
+  },
+  scorePlate: {
+    fontWeight: 600,
+    display: "inline-block",
+    border: "3px solid black",
+    backgroundColor: "lightgray",
+    padding: 3,
+  },
+  money: {
+    fontWeight: 600,
+    fontSize: 24,
+    textShadow: "2px 2px 2px white",
   },
 });

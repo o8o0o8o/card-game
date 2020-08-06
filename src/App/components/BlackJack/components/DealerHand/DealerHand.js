@@ -1,5 +1,4 @@
 import React, { useMemo, useEffect } from "react";
-import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
 
 import { useStyles } from "./DealerHand.styles";
@@ -12,7 +11,7 @@ import {
 import { Card } from "../../../common/Card/Card";
 import { addDealerHand, getACard } from "../../../../store/actions";
 
-export const DealerHand = ({ value, color }) => {
+export const DealerHand = () => {
   const classes = useStyles();
   const dealerHand = useSelector(dealerHandSelector);
   const dispatch = useDispatch();
@@ -39,7 +38,7 @@ export const DealerHand = ({ value, color }) => {
           suit={el.match(/\w*(?=_)/)[0]}
           rank={el.match(/(?<=_).*/)[0]}
           back=""
-          effect=""
+          effect="fly"
         />
       ));
     }
@@ -51,7 +50,7 @@ export const DealerHand = ({ value, color }) => {
             suit=""
             rank=""
             back="gradient"
-            effect="faceDown"
+            effect="fly"
           />
         );
       }
@@ -61,15 +60,11 @@ export const DealerHand = ({ value, color }) => {
           suit={el.match(/\w*(?=_)/)[0]}
           rank={el.match(/(?<=_).*/)[0]}
           back=""
-          effect=""
+          effect="fly"
         />
       );
     });
   }, [dealerHand, isItEnd]);
 
   return <div className={classes.dealerHand}>{newCard}</div>;
-};
-
-DealerHand.propTypes = {
-  value: PropTypes.element.isRequired,
 };

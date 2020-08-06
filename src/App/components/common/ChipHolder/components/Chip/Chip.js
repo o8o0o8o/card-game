@@ -29,5 +29,5 @@ export const Chip = ({ value, color }) => {
 };
 
 Chip.propTypes = {
-  value: PropTypes.element.isRequired,
+  value: PropTypes.number.isRequired,
 };

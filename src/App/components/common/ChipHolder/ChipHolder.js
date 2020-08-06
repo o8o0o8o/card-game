@@ -20,7 +20,6 @@ export const ChipHolder = () => {
   const makeABet = useCallback(
     (val) => {
       if (!gameIsOn) {
-        //  dispatch(subtractBlackJackPlayerMoney(val));
         dispatch(setBlackJackPlayerBet(val + playerBet));
         setPlayerBid(val);
         setTimeout(() => {
@@ -32,8 +31,9 @@ export const ChipHolder = () => {
   );
 
   const drawChipStack = useMemo(() => {
-    return CHIPS.map((element, i) => (
+    return CHIPS.map((element) => (
       <div
+        key={element.val}
         className={
           playerBid === element.val
             ? `${classes[`chip${playerBid}`]} ${classes.chipAnimate}`
@@ -64,7 +64,7 @@ export const ChipHolder = () => {
           }
           onClick={() => removeChip()}
         >
-          <Chip value={playerBet} color="gold" />{" "}
+          <Chip value={playerBet} color="gold" />
         </div>
       ) : (
         ""
