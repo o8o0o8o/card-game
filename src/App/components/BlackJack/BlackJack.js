@@ -201,13 +201,17 @@ export const BlackJack = () => {
           <div className={classes.playerHand}>
             <PlayerHand />
           </div>
-          <div className={classes.scorePlate}>{currentPlayerPoints}</div>
+          {gameIsOn && (
+            <div className={classes.scorePlate}>{currentPlayerPoints}</div>
+          )}
         </div>
         <div className={classes.dealer}>
           <div className={classes.dealerHand}>
             <DealerHand />
           </div>
-          <div className={classes.scorePlate}>{currentDealerPoints}</div>
+          {gameIsOn && (
+            <div className={classes.scorePlate}>{currentDealerPoints}</div>
+          )}
         </div>
       </div>
       <div className={classes.footer}>

@@ -1,7 +1,7 @@
 import { createUseStyles } from "react-jss";
 
-const CARD_HEIGHT = 180;
-const CARD_WEIGHT = 120;
+const WIDTH = 120;
+const HEIGHT = 180;
 const FONT_SIZE = 20;
 
 export const useStyles = createUseStyles({
@@ -14,8 +14,8 @@ export const useStyles = createUseStyles({
     left: 10,
   },
   lowerRank: {
-    top: CARD_HEIGHT - 1.5 * FONT_SIZE,
-    left: CARD_WEIGHT - FONT_SIZE,
+    top: HEIGHT - 1.5 * FONT_SIZE,
+    left: WIDTH - FONT_SIZE,
     transform: "rotate(180deg)",
   },
 });

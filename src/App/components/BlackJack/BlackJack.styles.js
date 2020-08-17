@@ -1,5 +1,8 @@
 import { createUseStyles } from "react-jss";
 
+const WIDTH_PLAYERS = "calc(100vw/2 - 100vw/10)";
+const SCORE_PLATE_SIZE = "2em";
+
 export const useStyles = createUseStyles({
   background: {
     width: "100vw",
@@ -11,21 +14,21 @@ export const useStyles = createUseStyles({
     position: "relative",
     top: "-90%",
     display: "flex",
-    transform: "scale(1)",
-    margin: 10,
+    justifyContent: "center",
   },
   player: {},
   playerHand: {
     position: "relative",
     top: "2rem",
+    width: WIDTH_PLAYERS,
   },
   dealer: {
     position: "relative",
-    left: "20%",
   },
   dealerHand: {
     position: "relative",
     top: "2rem",
+    width: WIDTH_PLAYERS,
   },
   mainContainer: {
     width: "100%",
@@ -33,9 +36,10 @@ export const useStyles = createUseStyles({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    transform: "scale(1)",
   },
   buttonsContainer: {
+    position: "relative",
+    top: 40,
     width: "300px",
     display: "flex",
     justifyContent: "space-between",
@@ -52,50 +56,33 @@ export const useStyles = createUseStyles({
   },
   moneyContainer: {
     position: "relative",
-    top: "100px",
-    left: "-200px",
+    top: 100,
+    display: "flex",
+    justifyContent: "center",
   },
   footer: {
     position: "absolute",
     bottom: 10,
     left: 10,
   },
-  "@media (max-width: 550px)": {
-    background: {
-      transform: "scale(1)",
-    },
-    mainContainer: {
-      position: "relative",
-      left: "120px",
-      transform: "scale(0.7)",
-    },
-    cardsRow: {
-      transform: "scale(0.7)",
-    },
-    buttonsContainer: {
-      marginLeft: "0",
-    },
-  },
-  "@keyframes pulse": {
-    from: { transform: "scale(1)" },
-    to: { transform: "scale(1.1)" },
-  },
-  pulser: {
-    animation: "$pulse 1s infinite",
-    "&:hover": {
-      animation: "none",
-    },
-  },
   scorePlate: {
+    position: "relative",
+    top: 230,
+    left: `calc((100vw/2 - 100vw/10) / 2 - ${SCORE_PLATE_SIZE})`,
     fontWeight: 600,
     display: "inline-block",
     border: "3px solid black",
     backgroundColor: "lightgray",
     padding: 3,
+    borderRadius: "50%",
+    width: SCORE_PLATE_SIZE,
+    height: SCORE_PLATE_SIZE,
+    textAlign: "center",
   },
   money: {
     fontWeight: 600,
     fontSize: 24,
     textShadow: "2px 2px 2px white",
   },
+  "@media (max-width: 600px) and screen": {},
 });
