@@ -30,7 +30,7 @@ export const PlayerHand = () => {
 
   const newCard = useMemo(
     () =>
-      playerHand.map((el) => (
+      playerHand.map((el, i) => (
         <Card
           key={el.toString()}
           suit={el.match(/\w*(?=_)/)[0]}
@@ -42,5 +42,12 @@ export const PlayerHand = () => {
     [playerHand]
   );
 
-  return <div className={classes.playerHand}>{newCard}</div>;
+  return (
+    <div
+      className={classes.playerHand}
+      //style={{ transform: `rotate(${30 * playerHand.length}deg)` }}
+    >
+      {newCard}
+    </div>
+  );
 };
