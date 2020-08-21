@@ -84,5 +84,36 @@ export const useStyles = createUseStyles({
     fontSize: 24,
     textShadow: "2px 2px 2px white",
   },
-  "@media (max-width: 600px) and screen": {},
+  "@media (max-width: 600px)": {
+    cardsRow: {
+      transform: "scale(0.8)",
+      justifyContent: "space-around",
+    },
+    moneyContainer: {
+      transform: "scale(0.8)",
+      left: "-50px",
+      justifyContent: "space-around",
+    },
+    buttonsContainer: {
+      transform: "scale(0.8)",
+    },
+    chipHolder: {
+      left: "-300px",
+    },
+  },
+  "@media (max-width: 500px)": {
+    cardsRow: {
+      transform: "scale(0.6)",
+      justifyContent: "space-around",
+    },
+    moneyContainer: {
+      position: "relative",
+      left: "-100px",
+      transform: "scale(0.6)",
+      justifyContent: "space-around",
+    },
+    buttonsContainer: {
+      transform: "scale(0.6)",
+    },
+  },
 });
